@@ -9,9 +9,8 @@ const path = require("path");
 
 app.use(express.static(path.join(__dirname, "public")));
 
-app.set("views", path.join(__dirname, "/views"));
-
 app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "/views"));
 
 app.get("/", (req, res) => {
   res.render("home");
@@ -39,6 +38,6 @@ app.get("/rand", (req, res) => {
   res.render("random", { num });
 });
 
-app.listen(3000, () => {
-  console.log("LISTENING ON PORT 3000");
+app.listen(8080, () => {
+  console.log("LISTENING ON PORT 8080");
 });

@@ -1,27 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
+  <%- include('partials/head') %>
+    <%- include('partials/navbar') %>
+    <div class="container">
+      <h1>Browsing The <%= name %> subreddit</h1>
+      <h2><%= description %></h2>
+      <p><%=subscribers %> Total Subscribers</p>
+      <hr />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= name %> </title>
-    <link rel="stylesheet" href="/app.css">
-</head>
-
-<body>
-    <h1>Browsing The <%= name %> subreddit</h1>
-    <h2><%= description %></h2>
-    <p><%=subscribers %> Total Subscribers</p>
-    <hr>
-
-    <% for(let post of posts) { %>
-    <article>
+      <% for(let post of posts) { %>
+      <article>
         <p><%= post.title %> - <b><%=post.author %></b></p>
         <% if(post.img) { %>
-        <img src="<%= post.img %>" alt="">
+        <img src="<%= post.img %>" alt="" />
         <% } %>
-    </article>
-    <% } %>
-</body>
-
-</html>
+      </article>
+      <% } %>
+    </div>
+    <%- include('partials/footer') %>
