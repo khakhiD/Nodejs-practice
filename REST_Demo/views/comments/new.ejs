@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Comment</title>
+  </head>
+  <body>
+    <h1>새 코멘트를 작성하세요.</h1>
+    <form action="/comments" method="post">
+      <section>
+        <label for="username">이름:</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          placeholder="username"
+        />
+      </section>
+      <section>
+        <label for="comment">내용:</label>
+        <textarea name="comment" id="comment" cols="30" rows="5"></textarea>
+    </section>
+    <button>제출</button>
+    <a href="/comments">뒤로가기</a>
+    </form>
+  </body>
+</html>
