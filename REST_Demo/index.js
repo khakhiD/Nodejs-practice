@@ -1,6 +1,7 @@
 const express = require('express')
 const path = require('path');
 const app = express()
+const { v4: uuid } = require('uuid');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -9,22 +10,22 @@ app.set('view-engine', 'ejs');
 
 const comments = [
     {
-        id: 1,
+        id: uuid(),
         username: 'svelte',
         comment: '왜 우리랑 할때만 잘하냐고!!!'
     },
     {
-        id: 2,
+        id: uuid(),
         username: 'React',
         comment: '아무래도 내가 1황이라고 할 수 있지'
     },
     {
-        id: 3,
+        id: uuid(),
         username: 'Vuejs',
         comment: '스타트업 중에 Vuejs를 쓰는 곳도 많던데'
     },
     {
-        id: 4,
+        id: uuid(),
         username: 'Angular',
         comment: '대 - 상 - 혁'
     }
@@ -40,13 +41,13 @@ app.get('/comments/new', (req, res) => {
 
 app.post('/comments', (req, res) => {
     const { username, comment } = req.body;
-    comments.push({ username, comment });
+    comments.push({ username, comment, id: uuid() });
     res.redirect('/comments');
 });
 
 app.get('/comments/:id', (req, res) => {
     const { id } = req.params;
-    const comment = comments.find(c => c.id === parseInt(id));
+    const comment = comments.find(c => c.id === id);
     // console.log(comment)
     res.render('comments/show.ejs', { comment }) // 이름은 상관없다. details, expanded...
 })

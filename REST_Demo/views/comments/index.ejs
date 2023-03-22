@@ -10,9 +10,10 @@
     <h1>Comments</h1>
     <ul>
         <% for (let comment of comments) {%>
-            <li><%= comment.comment%> - <b><%=comment.username%></b></li>    
+            <li><%= comment.comment%> - <b><%=comment.username%></b>
+            <a href="/comments/<%= comment.id %>">details</a></li>    
         <% } %>
     </ul>
-    <a href="/comments/new">NEW COMMENT</a>
+    <a href="/comments/new">댓글작성</a>
 </body>
 </html>
