@@ -10,7 +10,7 @@ app.use(methodOverride('_method'));
 app.set('views', path.join(__dirname, '/views'));
 app.set('view-engine', 'ejs');
 
-const comments = [
+let comments = [
     {
         id: uuid(),
         username: 'svelte',
@@ -71,6 +71,13 @@ app.get('/comments/:id/edit', (req, res) => {
     const { id } = req.params;
     const comment = comments.find(c => c.id === id);
     res.render('comments/edit.ejs', { comment });
+})
+
+app.delete('/comments/:id', (req, res) => {
+    const { id } = req.params;
+    // 페이크 데이터 배열을 필터링. 배열을 변형하지 않는다는 장점. 
+    comments = comments.filter(c => c.id !== id);
+    res.redirect('/comments');
 })
 
 app.get('/', (req, res) => {
