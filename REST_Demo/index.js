@@ -9,18 +9,22 @@ app.set('view-engine', 'ejs');
 
 const comments = [
     {
+        id: 1,
         username: 'svelte',
         comment: '왜 우리랑 할때만 잘하냐고!!!'
     },
     {
+        id: 2,
         username: 'React',
         comment: '아무래도 내가 1황이라고 할 수 있지'
     },
     {
+        id: 3,
         username: 'Vuejs',
         comment: '스타트업 중에 Vuejs를 쓰는 곳도 많던데'
     },
     {
+        id: 4,
         username: 'Angular',
         comment: '대 - 상 - 혁'
     }
@@ -39,6 +43,13 @@ app.post('/comments', (req, res) => {
     comments.push({ username, comment });
     res.redirect('/comments');
 });
+
+app.get('/comments/:id', (req, res) => {
+    const { id } = req.params;
+    const comment = comments.find(c => c.id === parseInt(id));
+    // console.log(comment)
+    res.render('comments/show.ejs', { comment }) // 이름은 상관없다. details, expanded...
+})
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/getpost.html');
