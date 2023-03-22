@@ -1,10 +1,12 @@
-const express = require('express')
+const express = require('express');
+const app = express();
 const path = require('path');
-const app = express()
+const methodOverride = require('method-override');
 const { v4: uuid } = require('uuid');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(methodOverride('_method'));
 app.set('views', path.join(__dirname, '/views'));
 app.set('view-engine', 'ejs');
 
@@ -31,25 +33,44 @@ const comments = [
     }
 ]
 
+/* CRUD: 댓글 전체 조회하기 */
 app.get('/comments', (req, res) => {
     res.render('comments/index.ejs', { comments });
 });
 
-app.get('/comments/new', (req, res) => {
-    res.render('comments/new.ejs');
-});
-
+/* CRUD: 댓글 생성하기 */
 app.post('/comments', (req, res) => {
     const { username, comment } = req.body;
     comments.push({ username, comment, id: uuid() });
     res.redirect('/comments');
 });
 
+/* CRUD: 댓글 생성 폼 */
+app.get('/comments/new', (req, res) => {
+    res.render('comments/new.ejs');
+});
+
+/* CRUD: 댓글 조회하기 */
 app.get('/comments/:id', (req, res) => {
     const { id } = req.params;
     const comment = comments.find(c => c.id === id);
-    // console.log(comment)
     res.render('comments/show.ejs', { comment }) // 이름은 상관없다. details, expanded...
+})
+
+/* CRUD: 댓글 수정하기 */
+app.patch('/comments/:id', (req, res) => {
+    const { id } = req.params;
+    const newCommentText = req.body.comment;
+    const foundComment = comments.find(c => c.id === id);
+    foundComment.comment = newCommentText;
+    res.redirect('/comments'); //리다이렉트
+})
+
+/* CRUD: 댓글 수정 폼 */
+app.get('/comments/:id/edit', (req, res) => {
+    const { id } = req.params;
+    const comment = comments.find(c => c.id === id);
+    res.render('comments/edit.ejs', { comment });
 })
 
 app.get('/', (req, res) => {
@@ -57,14 +78,14 @@ app.get('/', (req, res) => {
     // res.render('/getpost');
 })
 
-app.get('/tacos', (req,res) => {
-    res.send('GET /tacos response')
-})
+// app.get('/tacos', (req,res) => {
+//     res.send('GET /tacos response')
+// })
 
-app.post('/tacos', (req,res) => {
-    const { meat, qty } = req.body;
-    res.send(`OK, hear are ur ${qty} ${meat} tacos`);
-})
+// app.post('/tacos', (req,res) => {
+//     const { meat, qty } = req.body;
+//     res.send(`OK, hear are ur ${qty} ${meat} tacos`);
+// })
 
 app.listen(3000, () => {
     console.log('ON PORT 3000')
