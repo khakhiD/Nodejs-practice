@@ -28,7 +28,7 @@ let comments = [
     },
     {
         id: uuid(),
-        username: 'Angular',
+        username: 'T1istheBest',
         comment: '대 - 상 - 혁'
     }
 ]
