@@ -1,16 +1,11 @@
-const mongoose = require("mongoose");
-mongoose
-  .connect("mongodb://localhost:27017/shopApp", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log("CONNECTION OPEN!!!");
-  })
-  .catch((err) => {
-    console.log("OH NO ERROR!!!!");
-    console.log(err);
-  });
+const mongoose = require('mongoose');
+
+main().catch(err => console.log(err));
+
+async function main() {
+  await mongoose.connect('mongodb://127.0.0.1:27017/shopApp');
+  console.log("connection open");
+}
 
 const productSchema = new mongoose.Schema({
   name: {
@@ -78,16 +73,16 @@ const findProduct = async () => {
 
 // findProduct();
 
-// const bike = new Product({ name: 'Cycling Jersey', price: 28.50, categories: ['Cycling'], size: 'XS' })
-// bike.save()
-//     .then(data => {
-//         console.log("IT WORKED!")
-//         console.log(data);
-//     })
-//     .catch(err => {
-//         console.log("OH NO ERROR!")
-//         console.log(err)
-//     })
+const bike = new Product({ price: 28.50, categories: ['Cycling'], size: 'XS' })
+bike.save()
+    .then(data => {
+        console.log("IT WORKED!")
+        console.log(data);
+    })
+    .catch(err => {
+        console.log("OH NO ERROR!")
+        console.log(err)
+    })
 
 // Product.findOneAndUpdate({ name: 'Tire Pump' }, { price: 9 }, { new: true, runValidators: true })
 //     .then(data => {

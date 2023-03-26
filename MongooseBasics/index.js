@@ -29,4 +29,5 @@ const Movie = mongoose.model('Movie', movieSchema);
 //   console.log(data);
 // })
 
-Movie.findOneAndUpdate({title: 'Alien'}, {score: 7.8}, {new: true}).then( m => console.log(m));
+// Movie.findOneAndUpdate({title: 'Alien'}, {score: 7.8}, {new: true}).then( m => console.log(m));
+Movie.findOneAndDelete({title: 'Alien'}).then(m => console.log(m));
