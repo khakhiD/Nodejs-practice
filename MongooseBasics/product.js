@@ -73,18 +73,8 @@ const findProduct = async () => {
 
 // findProduct();
 
-const bike = new Product({ price: 28.50, categories: ['Cycling'], size: 'XS' })
-bike.save()
-    .then(data => {
-        console.log("IT WORKED!")
-        console.log(data);
-    })
-    .catch(err => {
-        console.log("OH NO ERROR!")
-        console.log(err)
-    })
-
-// Product.findOneAndUpdate({ name: 'Tire Pump' }, { price: 9 }, { new: true, runValidators: true })
+// const bike = new Product({ price: 28.50, categories: ['Cycling'], size: 'XS' })
+// bike.save()
 //     .then(data => {
 //         console.log("IT WORKED!")
 //         console.log(data);
@@ -93,3 +83,13 @@ bike.save()
 //         console.log("OH NO ERROR!")
 //         console.log(err)
 //     })
+
+Product.findOneAndUpdate({ name: 'Tire Pump' }, { price: 9 }, { new: true, runValidators: true })
+    .then(data => {
+        console.log("IT WORKED!")
+        console.log(data);
+    })
+    .catch(err => {
+        console.log("OH NO ERROR!")
+        console.log(err)
+    })
