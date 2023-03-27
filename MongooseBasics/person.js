@@ -1,16 +1,11 @@
-const mongoose = require("mongoose");
-mongoose
-  .connect("mongodb://localhost:27017/shopApp", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log("CONNECTION OPEN!!!");
-  })
-  .catch((err) => {
-    console.log("OH NO ERROR!!!!");
-    console.log(err);
-  });
+const mongoose = require('mongoose');
+
+main().catch(err => console.log(err));
+
+async function main() {
+  await mongoose.connect('mongodb://127.0.0.1:27017/shopApp');
+  console.log("connection open");
+}
 
 const personSchema = new mongoose.Schema({
   first: String,
