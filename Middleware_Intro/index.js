@@ -3,7 +3,7 @@ const app = express();
 const morgan = require('morgan');
 
 
-app.use(morgan('tiny'));
+app.use(morgan('dev'));
 
 app.use((req, res, next) => {
     req.requestTime = Date.now();
@@ -18,10 +18,10 @@ app.use('/dogs', (req, res, next) => {
 
 const verifyPassword = (req, res, next) => {
     const { password } = req.query;
-    if (password === 'chickennugget') {
+    if (password === 'qwer') {
         next();
     }
-    res.send("YOU NEED A PASSWORD!")
+    res.send("패스워드가 필요해요.")
 }
 
 
