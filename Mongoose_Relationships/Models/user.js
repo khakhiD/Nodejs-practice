@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
     last: String,
     addresses: [
         {
-            _id: { id: false },
+            // id: { _id: false }, // 타입에러 발생
             street: String,
             city: String,
             state: String,
