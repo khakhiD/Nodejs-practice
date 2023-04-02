@@ -39,7 +39,7 @@ const makeFarm = async() => {
     const farm = new Farm({ name: '풀 벨리 농장', location: '경남 김해' });
     const melon = await Product.findOne({name: '개쩌는 멜론'});
     farm.products.push(melon);
-    await farm.save()
+    await farm.save();
     console.log(farm);
 }
 
@@ -53,4 +53,8 @@ const addProduct = async () => {
     farm.save();
 }
 
-addProduct();
+// addProduct();
+
+Farm.findOne({ name: '풀 벨리 농장'})
+    .populate('products')
+    .then(farm => console.log(farm));
