@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= farm.name %></title>
+</head>
+<body>
+    <h1><%= farm.name %></h1>
+    <ul>
+        <li>도시: <%= farm.city %></li>
+        <li>이메일: <%= farm.email %></li>
+    </ul>
+    <h2>Products</h2>
+    <ul>
+        <% for(let product of farm.products) {%>
+            <li><a href="/products/<%=product._id%>"><%=product.name%></a></li>
+        <% } %>
+    </ul>
+    <a href="/farms/<%=farm._id%>/products/new">상품 추가</a>
+    <a href="/farms">모든 농장 보기</a>
+    <form action="/farms/<%=farm._id%>?_method=DELETE" method="post">
+        <button>농장 삭제</button>
+    </form>
+    <p>경로: index > farm</p>
+</body>
+</html>
