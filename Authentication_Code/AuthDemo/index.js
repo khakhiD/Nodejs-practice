@@ -1,8 +1,8 @@
 const User = require('./models/user');
 const express = require('express');
+const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const app = express();
-const bcrypt = require('bcrypt');
 const session = require('express-session');
 
 app.set('view engine', 'ejs');
@@ -36,11 +36,9 @@ app.get('/login', (req, res) => {
 
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
-    const user = await User.findOne({ username });
-    const valid = await bcrypt.compare(password, user.password);
-    if (valid) {
-        // 로그인에 성공하면 세션에 사용자의 .id를 저장한다.
-        req.session.user_id = user._id;
+    const foundUser = await User.findAndValidate(username, password);
+    if (foundUser) {
+        req.session.user_id = foundUser._id;
         res.redirect('/secret');
     } else {
         res.redirect('/login');
@@ -53,11 +51,8 @@ app.get('/register', (req, res) => {
 
 app.post('/register', async (req, res) => {
     const { username, password } = req.body;
-    const hash = await bcrypt.hash(password, 12);
-    const user = new User({
-        username,
-        password: hash
-    })
+    // const hash = await bcrypt.hash(password, 12);
+    const user = new User({ username, password });
     await user.save();
     // 가입하고 나서 로그인 상태를 유지하도록 세션에 id를 저장한다.
     req.session.user_id = user._id;
